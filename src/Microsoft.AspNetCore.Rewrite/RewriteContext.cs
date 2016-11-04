@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Rewrite.Internal;
 
 namespace Microsoft.AspNetCore.Rewrite
 {
@@ -35,5 +36,7 @@ namespace Microsoft.AspNetCore.Rewrite
         public RuleResult Result { get; set; }
 
         internal StringBuilder Builder { get; set; } = new StringBuilder(64);
+
+        public BackReferenceCollection BackReferences { get; set; }
     }
 }

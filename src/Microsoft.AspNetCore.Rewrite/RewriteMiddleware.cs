@@ -10,6 +10,8 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Rewrite.Internal;
 
 namespace Microsoft.AspNetCore.Rewrite
 {
@@ -64,12 +66,14 @@ namespace Microsoft.AspNetCore.Rewrite
                 throw new ArgumentNullException(nameof(context));
             }
 
+            var backReferenceCollection = new BackReferenceCollection();
             var rewriteContext = new RewriteContext
             {
                 HttpContext = context,
                 StaticFileProvider = _fileProvider,
                 Logger = _logger,
-                Result = RuleResult.ContinueRules
+                Result = RuleResult.ContinueRules,
+                BackReferences = backReferenceCollection
             };
 
             foreach (var rule in _options.Rules)
